@@ -1,92 +1,229 @@
-const form = document.getElementById("signupForm");
-const successPopup = document.getElementById("successPopup");
+import React, { useState, useRef, useEffect } from "react";
+import "./Sign_Up.css";
+import Navbar from "../NavBar/NavBar";
 
-const togglePassword = document.getElementById("togglePassword");
-const passwordInput = document.getElementById("password");
-
-const toggleSelect = document.getElementById("toggleSelect");
-const customSelect = document.querySelector(".custom-select");
-const selected = document.getElementById("selectedRole");
-const options = document.getElementById("roleOptions");
-const roleInput = document.getElementById("role");
-
-/* PASSWORD TOGGLE */
-togglePassword.addEventListener("click", () => {
-  const isPassword = passwordInput.type === "password";
-  passwordInput.type = isPassword ? "text" : "password";
-  togglePassword.textContent = isPassword ? "visibility" : "visibility_off";
-});
-
-/* CUSTOM SELECT */
-toggleSelect.addEventListener("click", () => {
-  customSelect.classList.toggle("open");
-});
-
-document.addEventListener("click", (e) => {
-  if (!customSelect.contains(e.target)) {
-    customSelect.classList.remove("open");
-  }
-});
-
-selected.addEventListener("click", () => {
-  customSelect.classList.toggle("open");
-});
-
-options.querySelectorAll("li").forEach((option) => {
-  option.addEventListener("click", () => {
-    selected.textContent = option.textContent;
-    roleInput.value = option.dataset.value;
-    customSelect.classList.remove("open");
+export default function SignUp() {
+  const [userDetails, setUserDetails] = useState({
+    role: "",
+    name: "",
+    email: "",
+    phoneNumber: "",
+    password: "",
   });
-});
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  let isValid = true;
+  const [showPassword, setShowPassword] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
+  const [success, setSuccess] = useState(false);
+  const [selectOpen, setSelectOpen] = useState(false);
 
-  function toggleError(input, errorId, condition) {
-    const error = document.getElementById(errorId);
-    if (condition) {
-      error.style.display = "block";
-      input.classList.add("input-error");
-      isValid = false;
-    } else {
-      error.style.display = "none";
-      input.classList.remove("input-error");
-    }
-  }
+  const selectRef = useRef(null);
 
-  // ROLE
-  toggleError(roleInput, "roleError", !roleInput.value);
+  const roles = ["Doctor", "Admin", "Patient"];
 
-  // NAME
-  const name = document.getElementById("name");
-  toggleError(name, "nameError", name.value.trim().length < 5);
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (selectRef.current && !selectRef.current.contains(e.target)) {
+        setSelectOpen(false);
+      }
+    };
 
-  // PHONE
-  const phone = document.getElementById("phone");
-  toggleError(phone, "phoneError", !/^\+?[0-9\s-]{7,15}$/.test(phone.value));
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-  // EMAIL
-  const email = document.getElementById("email");
-  toggleError(
-    email,
-    "emailError",
-    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)
-  );
+  const validators = {
+    role: (v) => (!v ? "Please select a role" : ""),
+    name: (v) => (!v || v.trim().length < 5 ? "Enter your full name" : ""),
+    phoneNumber: (v) =>
+      !/^\d{10}$/.test(v) ? "Phone number must be 10 digits" : "",
+    email: (v) =>
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
+        ? "Enter a valid email address"
+        : "",
+    password: (v) =>
+      v.length < 12 ? "Password must be at least 12 characters" : "",
+  };
 
-  // PASSWORD
-  toggleError(passwordInput, "passwordError", passwordInput.value.length < 12);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-  /* ✅ SUCCESS */
-  if (isValid) {
-    successPopup.style.display = "block";
+    setUserDetails((prev) => ({ ...prev, [name]: value }));
+    setTouched((prev) => ({ ...prev, [name]: true }));
 
+    setErrors((prev) => ({
+      ...prev,
+      [name]: validators[name]?.(value),
+    }));
+  };
+
+  const handleSelectRole = (role) => {
+    setUserDetails((prev) => ({ ...prev, role }));
+    setTouched((prev) => ({ ...prev, role: true }));
+    setErrors((prev) => ({ ...prev, role: "" }));
+    setSelectOpen(false);
+  };
+
+  const handleReset = () => {
+    setUserDetails({
+      role: "",
+      name: "",
+      email: "",
+      phoneNumber: "",
+      password: "",
+    });
+    setErrors({});
+    setTouched({});
+  };
+
+  const isFormValid =
+    Object.values(errors).every((e) => !e) &&
+    Object.keys(validators).every((key) => userDetails[key]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!isFormValid) return;
+
+    setSuccess(true);
     setTimeout(() => {
-      successPopup.style.display = "none";
-      form.reset();
-      selected.textContent = "Select role";
-      roleInput.value = "";
+      setSuccess(false);
+      handleReset();
     }, 3000);
-  }
-});
+  };
+
+  return (
+    <div>
+      <Navbar showMenu={false} />
+      <div className="login-container signup-container">
+        <form className="login-card" onSubmit={handleSubmit} autoComplete="off">
+          <h2>Sign Up</h2>
+
+          <div className="links">
+            <div>
+              Already have an account? <a href="/Login">Login</a>
+            </div>
+          </div>
+
+          <div className="input-group">
+            <label>Role</label>
+            <div
+              ref={selectRef}
+              className={`custom-select ${selectOpen ? "open" : ""}`}
+              onClick={() => setSelectOpen(!selectOpen)}
+            >
+              <div className="selected">
+                {userDetails.role || "Select role"}
+              </div>
+              <ul className="options">
+                {roles.map((role) => (
+                  <li key={role} onClick={() => handleSelectRole(role)}>
+                    {role}
+                  </li>
+                ))}
+              </ul>
+              <span className="material-symbols-outlined toggle-select">
+                keyboard_arrow_down
+              </span>
+            </div>
+            {touched.role && errors.role && (
+              <span className="error-message">{errors.role}</span>
+            )}
+          </div>
+
+          <div className="input-group">
+            <label>Name</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Your name"
+              value={userDetails.name}
+              onChange={handleChange}
+            />
+            {userDetails.name && touched.name && errors.name && (
+              <span className="error-message">{errors.name}</span>
+            )}
+          </div>
+
+          <div className="display-flex">
+            <div className="input-group">
+              <label>Phone Number</label>
+              <input
+                type="text"
+                name="phoneNumber"
+                maxLength="10"
+                placeholder="Your phone number"
+                value={userDetails.phoneNumber}
+                onChange={(e) =>
+                  handleChange({
+                    target: {
+                      name: "phoneNumber",
+                      value: e.target.value.replace(/\D/g, ""),
+                    },
+                  })
+                }
+              />
+              {userDetails.phoneNumber &&
+                touched.phoneNumber &&
+                errors.phoneNumber && (
+                  <span className="error-message">{errors.phoneNumber}</span>
+                )}
+            </div>
+
+            <div className="input-group">
+              <label>Email</label>
+              <input
+                type="email"
+                name="email"
+                placeholder="Your email"
+                value={userDetails.email}
+                onChange={handleChange}
+              />
+              {userDetails.email && touched.email && errors.email && (
+                <span className="error-message">{errors.email}</span>
+              )}
+            </div>
+          </div>
+
+          <div className="input-group password-group">
+            <label>Password</label>
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Your password"
+              value={userDetails.password}
+              onChange={handleChange}
+            />
+            <span
+              className="material-symbols-outlined toggle-password"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "visibility" : "visibility_off"}
+            </span>
+            {userDetails.password && touched.password && errors.password && (
+              <span className="error-message">{errors.password}</span>
+            )}
+          </div>
+
+          <button
+            type="submit"
+            className="login-button"
+            disabled={!isFormValid}
+          >
+            Sign Up
+          </button>
+
+          <div className="links links-center">
+            <button type="button" onClick={handleReset}>
+              Reset Form
+            </button>
+          </div>
+        </form>
+
+        {success && (
+          <div className="success-popup">Account created successfully!</div>
+        )}
+      </div>
+    </div>
+  );
+}

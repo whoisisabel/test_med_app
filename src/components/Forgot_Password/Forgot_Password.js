@@ -1,45 +1,103 @@
-/* ELEMENTS */
-const emailInput = document.getElementById("email");
-const emailError = document.getElementById("emailError");
-const form = document.querySelector(".login-card");
-const successPopup = document.getElementById("successPopup");
+import React, { useState } from "react";
+import "./Forgot_Password.css";
+import Navbar from "../NavBar/NavBar";
 
+export default function ForgotPassword() {
+  const [email, setEmail] = useState("");
 
-/* EMAIL LIVE VALIDATION */
-emailInput.addEventListener("input", () => {
-  validateEmail();
-});
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState();
+  const [success, setSuccess] = useState(false);
 
-/* FORM SUBMIT */
-form.addEventListener("submit", (e) => {
-  e.preventDefault(); // ALWAYS prevent submit first
+  const validators = {
+    email: (v) =>
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
+        ? "Enter a valid email address"
+        : "",
+  };
 
-  let isValid = true;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-  if (!validateEmail()) isValid = false;
+    setEmail(value);
 
-  /* SUCCESS */
-  if (isValid) {
-    successPopup.style.display = "block";
+    setTouched((prev) => ({
+      ...prev,
+      [name]: true,
+    }));
 
+    setErrors((prev) => ({
+      ...prev,
+      [name]: validators[name]?.(value),
+    }));
+  };
+
+  const handleReset = () => {
+    setEmail("");
+    setErrors({});
+    setTouched({});
+  };
+
+  const isFormValid =
+    Object.values(errors).every((e) => !e) &&
+    Object.keys(validators).every((key) => key);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!isFormValid) return;
+
+    setSuccess(true);
     setTimeout(() => {
-      successPopup.style.display = "none";
-      form.reset();
+      setSuccess(false);
+      handleReset();
     }, 3000);
-  }
-});
+  };
 
-/* HELPERS */
-function validateEmail() {
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return (
+    <div>
+      <Navbar showMenu={false} />
+      <div className="login-container">
+        <form className="login-card" onSubmit={handleSubmit}>
+          <h2>Forgot Password</h2>
 
-  if (!emailPattern.test(emailInput.value)) {
-    emailError.style.display = "block";
-    emailInput.classList.add("input-error");
-    return false;
-  } else {
-    emailError.style.display = "none";
-    emailInput.classList.remove("input-error");
-    return true;
-  }
+          <div className="links">
+            <div>
+              Don't have an account? <a href="/Sign-up">Sign up</a>
+            </div>
+          </div>
+          <div className="input-group">
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Your email"
+              value={email}
+              onChange={handleChange}
+            />
+            {email && touched.email && errors.email && (
+              <span className="error-message">{errors.email}</span>
+            )}
+          </div>
+
+          <button
+            type="submit"
+            className="login-button"
+            disabled={!isFormValid}
+          >
+            Login
+          </button>
+          <div className="links links-right">
+            <a href="/Login">Back to Login</a>
+          </div>
+        </form>
+
+        {success && (
+          <div className="success-popup">
+            Password reset instructions sent to your email
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }

@@ -24,7 +24,7 @@ export default function LandingPage() {
               Access quality healthcare anytime, anywhere. Connect with trusted
               doctors, schedule appointments, and manage your health with ease.
             </h4>
-            <a href="../Login/index.html">
+            <a href="/Login">
               <button class="button">Get Started</button>
             </a>
           </div>
