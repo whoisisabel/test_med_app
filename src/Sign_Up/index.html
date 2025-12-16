@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stay Healthy | Register</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <a href="../Landing_Page/LandingPage.html">
+        <div class="logo">
+          StayHealthy
+          <span class="material-symbols-outlined">home_health</span>
+        </div>
+      </a>
+    </nav>
+    <section>
+      <div>
+        <div data-aos="fade-up" class="flex-hero">
+          <div class="blob-cont">
+            <div class="blue blob"></div>
+          </div>
+          <div class="blob-cont">
+            <div class="blue1 blob"></div>
+          </div>
+          <div class="login-container signup-container">
+            <form class="login-card" id="signupForm">
+              <h2>Sign Up</h2>
+              <div class="links">
+                <div>
+                  Already have an account?
+                  <a href="../Login/index.html">Login</a>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label>Role</label>
+                <div class="custom-select">
+                  <div class="selected" id="selectedRole">Select role</div>
+                  <ul class="options" id="roleOptions">
+                    <li data-value="Doctor">Doctor</li>
+                    <li data-value="Admin">Admin</li>
+                    <li data-value="Patient">Patient</li>
+                  </ul>
+                  <span
+                    class="material-symbols-outlined toggle-select"
+                    id="toggleSelect"
+                  >
+                    keyboard_arrow_down
+                  </span>
+                </div>
+
+                <input type="hidden" id="role" />
+
+                <small class="error-message" id="roleError"
+                  >Please select a role</small
+                >
+              </div>
+
+              <div class="input-group">
+                <label>Name</label>
+                <input type="text" id="name" placeholder="Your name" required />
+                <small class="error-message" id="nameError"
+                  >Enter your full name</small
+                >
+              </div>
+
+              <div class="display-flex">
+                <div class="input-group">
+                  <label>Phone Number</label>
+                  <input
+                    type="text"
+                    id="phone"
+                    placeholder="Your phone number"
+                    required
+                  />
+                  <small class="error-message" id="phoneError">
+                    Enter a valid phone number
+                  </small>
+                </div>
+
+                <div class="input-group">
+                  <label>Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="Your email"
+                    required
+                  />
+                  <small class="error-message" id="emailError">
+                    Enter a valid email address
+                  </small>
+                </div>
+              </div>
+
+              <div class="input-group password-group">
+                <label>Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="Your password"
+                  required
+                />
+                <span
+                  class="material-symbols-outlined toggle-password"
+                  id="togglePassword"
+                >
+                  visibility_off
+                </span>
+                <small class="error-message" id="passwordError">
+                  Password must be at least 12 characters
+                </small>
+              </div>
+
+              <button type="submit" class="login-btn">Sign Up</button>
+
+              <div class="links links-center">
+                <a
+                  href="#"
+                  onclick="document.getElementById('signupForm').reset()"
+                >
+                  Reset Form
+                </a>
+              </div>
+            </form>
+
+            <div class="success-popup" id="successPopup">
+              Account created successfully!
+            </div>
+          </div>
+
+          <script src="Sign_Up.js"></script>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

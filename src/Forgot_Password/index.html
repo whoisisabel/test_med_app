@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stay Healthy | Forgot Password</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <a href="../Landing_Page/LandingPage.html">
+        <div class="logo">
+          StayHealthy
+          <span class="material-symbols-outlined">home_health</span>
+        </div>
+      </a>
+    </nav>
+    <section>
+      <div>
+        <div data-aos="fade-up" class="flex-hero">
+          <div class="blob-cont">
+            <div class="blue blob"></div>
+          </div>
+          <div class="blob-cont">
+            <div class="blue1 blob"></div>
+          </div>
+          <div class="login-container">
+            <form class="login-card">
+              <h2>Forgot Password</h2>
+              <div class="links">
+                <div>
+                  Don't have an account?
+                  <a href="../Sign_Up/index.html">Sign up</a>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label>Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="Your email"
+                  required
+                />
+                <small class="error-message" id="emailError">
+                  Enter a valid email address
+                </small>
+              </div>
+
+              <button type="submit" class="login-btn">
+                Send Reset Instructions
+              </button>
+
+              <div class="links links-right">
+                <a href="../Login/index.html">Back to Login</a>
+              </div>
+            </form>
+            <div class="success-popup" id="successPopup">
+              Password reset instructions sent to your email
+            </div>
+          </div>
+
+          <script src="Forgot_Password.js"></script>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
