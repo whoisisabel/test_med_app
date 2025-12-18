@@ -1,13 +1,16 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 import "./Sign_Up.css";
 import Navbar from "../NavBar/NavBar";
+import { API_URL } from "../../config";
 
 export default function SignUp() {
   const [userDetails, setUserDetails] = useState({
     role: "",
     name: "",
     email: "",
-    phoneNumber: "",
+    phone: "",
     password: "",
   });
 
@@ -15,9 +18,13 @@ export default function SignUp() {
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
   const [success, setSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [selectOpen, setSelectOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const selectRef = useRef(null);
+
+  const navigate = useNavigate();
 
   const roles = ["Doctor", "Admin", "Patient"];
 
@@ -35,8 +42,7 @@ export default function SignUp() {
   const validators = {
     role: (v) => (!v ? "Please select a role" : ""),
     name: (v) => (!v || v.trim().length < 5 ? "Enter your full name" : ""),
-    phoneNumber: (v) =>
-      !/^\d{10}$/.test(v) ? "Phone number must be 10 digits" : "",
+    phone: (v) => (!/^\d{10}$/.test(v) ? "Phone number must be 10 digits" : ""),
     email: (v) =>
       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
         ? "Enter a valid email address"
@@ -69,7 +75,7 @@ export default function SignUp() {
       role: "",
       name: "",
       email: "",
-      phoneNumber: "",
+      phone: "",
       password: "",
     });
     setErrors({});
@@ -80,16 +86,56 @@ export default function SignUp() {
     Object.values(errors).every((e) => !e) &&
     Object.keys(validators).every((key) => userDetails[key]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     if (!isFormValid) return;
 
-    setSuccess(true);
-    setTimeout(() => {
-      setSuccess(false);
-      handleReset();
-    }, 3000);
+    const response = await fetch(`${API_URL}api/auth/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: userDetails.name,
+        email: userDetails.email,
+        password: userDetails.password,
+        phone: userDetails.phone,
+      }),
+    });
+
+    const json = await response.json(); // Parse the response JSON
+
+    if (json.authtoken) {
+      // Store user data in session storage
+      sessionStorage.setItem("auth-token", json.authtoken);
+      sessionStorage.setItem("name", userDetails.name);
+      sessionStorage.setItem("phone", userDetails.phone);
+      sessionStorage.setItem("email", userDetails.email);
+
+      setSuccess(true);
+      setTimeout(() => {
+        setSuccess(false);
+        handleReset();
+        navigate("/Home");
+      }, 3000);
+
+      // Redirect user to home page
+    } else {
+      if (json.errors) {
+        for (const error of json.errors) {
+          setErrorMessage(error.msg);
+        }
+      } else {
+        setErrorMessage(json.error);
+      }
+      setSuccess(true);
+      setTimeout(() => {
+        setSuccess(false);
+      }, 3000);
+    }
+    setLoading(false);
   };
 
   return (
@@ -139,6 +185,7 @@ export default function SignUp() {
               placeholder="Your name"
               value={userDetails.name}
               onChange={handleChange}
+              disabled={loading}
             />
             {userDetails.name && touched.name && errors.name && (
               <span className="error-message">{errors.name}</span>
@@ -150,24 +197,23 @@ export default function SignUp() {
               <label>Phone Number</label>
               <input
                 type="text"
-                name="phoneNumber"
+                name="phone"
                 maxLength="10"
                 placeholder="Your phone number"
-                value={userDetails.phoneNumber}
+                value={userDetails.phone}
                 onChange={(e) =>
                   handleChange({
                     target: {
-                      name: "phoneNumber",
+                      name: "phone",
                       value: e.target.value.replace(/\D/g, ""),
                     },
                   })
                 }
+                disabled={loading}
               />
-              {userDetails.phoneNumber &&
-                touched.phoneNumber &&
-                errors.phoneNumber && (
-                  <span className="error-message">{errors.phoneNumber}</span>
-                )}
+              {userDetails.phone && touched.phone && errors.phone && (
+                <span className="error-message">{errors.phone}</span>
+              )}
             </div>
 
             <div className="input-group">
@@ -178,6 +224,7 @@ export default function SignUp() {
                 placeholder="Your email"
                 value={userDetails.email}
                 onChange={handleChange}
+                disabled={loading}
               />
               {userDetails.email && touched.email && errors.email && (
                 <span className="error-message">{errors.email}</span>
@@ -193,6 +240,7 @@ export default function SignUp() {
               placeholder="Your password"
               value={userDetails.password}
               onChange={handleChange}
+              disabled={loading}
             />
             <span
               className="material-symbols-outlined toggle-password"
@@ -208,9 +256,9 @@ export default function SignUp() {
           <button
             type="submit"
             className="login-button"
-            disabled={!isFormValid}
+            disabled={!isFormValid || loading}
           >
-            Sign Up
+            {loading ? <CircularProgress size={10}/> : "Sign Up"}
           </button>
 
           <div className="links links-center">
@@ -221,7 +269,9 @@ export default function SignUp() {
         </form>
 
         {success && (
-          <div className="success-popup">Account created successfully!</div>
+          <div className={errorMessage ? "error-popup" : "success-popup"}>
+            {errorMessage ? errorMessage : "Account created successfully!"}
+          </div>
         )}
       </div>
     </div>

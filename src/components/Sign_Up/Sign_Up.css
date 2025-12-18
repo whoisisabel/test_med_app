@@ -137,6 +137,18 @@ body {
   animation: slideIn 0.4s ease;
 }
 
+.error-popup {
+  position: fixed;
+  bottom: 30px;
+  left: 20px;
+  background: #ff383c;
+  color: white;
+  padding: 14px 40px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.4s ease;
+}
+
 @keyframes slideIn {
   from {
     opacity: 0;
