@@ -6,26 +6,26 @@ export default function LandingPage() {
   return (
     <div>
       <Navbar />
-      <section class="hero-section">
+      <section className="hero-section">
         <div>
-          <div data-aos="fade-up" class="flex-hero">
+          <div data-aos="fade-up" className="flex-hero">
             <h1>
               Your Health
               <br />
-              <span class="text-gradient"> Our Responsibility </span>
+              <span className="text-gradient"> Our Responsibility </span>
             </h1>
-            <div class="blob-cont">
-              <div class="blue blob"></div>
+            <div className="blob-cont">
+              <div className="blue blob"></div>
             </div>
-            <div class="blob-cont">
-              <div class="blue1 blob"></div>
+            <div className="blob-cont">
+              <div className="blue1 blob"></div>
             </div>
             <h4>
               Access quality healthcare anytime, anywhere. Connect with trusted
               doctors, schedule appointments, and manage your health with ease.
             </h4>
             <a href="/Login">
-              <button class="button">Get Started</button>
+              <button className="button">Get Started</button>
             </a>
           </div>
         </div>

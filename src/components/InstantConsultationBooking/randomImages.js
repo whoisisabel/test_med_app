@@ -1,0 +1,22 @@
+export const randomImages = [
+  { image: "https://randomuser.me/api/portraits/women/44.jpg" },
+  { image: "https://randomuser.me/api/portraits/men/32.jpg" },
+  { image: "https://randomuser.me/api/portraits/women/65.jpg" },
+  { image: "https://randomuser.me/api/portraits/women/21.jpg" },
+  { image: "https://randomuser.me/api/portraits/men/14.jpg" },
+  { image: "https://randomuser.me/api/portraits/women/48.jpg" },
+  { image: "https://randomuser.me/api/portraits/men/55.jpg" },
+  { image: "https://randomuser.me/api/portraits/men/61.jpg" },
+  { image: "https://randomuser.me/api/portraits/men/71.jpg" },
+  { image: "https://randomuser.me/api/portraits/men/19.jpg" },
+  { image: "https://randomuser.me/api/portraits/women/12.jpg" },
+  { image: "https://randomuser.me/api/portraits/men/28.jpg" },
+  { image: "https://randomuser.me/api/portraits/men/40.jpg" },
+  { image: "https://randomuser.me/api/portraits/women/73.jpg" },
+  { image: "https://randomuser.me/api/portraits/men/67.jpg" },
+  { image: "https://randomuser.me/api/portraits/women/34.jpg" },
+  { image: "https://randomuser.me/api/portraits/women/58.jpg" },
+  { image: "https://randomuser.me/api/portraits/women/81.jpg" },
+  { image: "https://randomuser.me/api/portraits/men/83.jpg" },
+  { image: "https://randomuser.me/api/portraits/women/90.jpg" }
+];

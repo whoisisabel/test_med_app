@@ -111,7 +111,7 @@ export default function Login() {
   };
 
   return (
-    <div>
+    <div className="main-container">
       <Navbar showMenu={false} />
       <div className="login-container">
         <form className="login-card" onSubmit={handleSubmit}>

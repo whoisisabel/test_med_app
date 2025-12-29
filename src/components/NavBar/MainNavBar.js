@@ -5,7 +5,7 @@ import "./NavBar.css";
 import { useNavigate } from "react-router-dom";
 import { Avatar } from "@mui/material";
 
-export default function MainNavbar({ showMenu = true }) {
+export default function MainNavbar({ showMenu = true, active }) {
   const [open, setOpen] = useState(false);
   const [userName, setUsername] = useState("");
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ export default function MainNavbar({ showMenu = true }) {
   }, []);
 
   return (
-    <div className="navbar">
+    <div className="navbar bg-white">
       <a href="/">
         <div className="logo">
           StayHealthy
@@ -51,12 +51,20 @@ export default function MainNavbar({ showMenu = true }) {
           >
             <ul className="menu">
               <li>
-                <a href="LandingPage.html" className="active">
+                <a
+                  href="/home"
+                  className={active === "home" ? "active" : null}
+                >
                   Home
                 </a>
               </li>
               <li>
-                <a href="#">Appointment</a>
+                <a
+                  href="/instant-consultation"
+                  className={active === "appointment" ? "active" : null}
+                >
+                  Appointment
+                </a>
               </li>
               <li>
                 <a href="#">Blog</a>

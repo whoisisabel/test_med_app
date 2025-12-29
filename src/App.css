@@ -7,12 +7,6 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -89,7 +83,6 @@
   }
 }
 
-
 ul {
   list-style: none;
 }
@@ -114,26 +107,68 @@ button {
   margin-top: 10px;
 }
 
-
-
 button,
 a,
 li {
   cursor: pointer;
 }
 
-body {
-  margin: 0;
-  font-family: "Poppins", sans-serif;
-  box-sizing: border-box;
-  font-size: 14px;
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+.main-container {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f2f6fc;
+}
+
+.content {
+  padding-top: 8em;
+  padding-bottom:2em ;
+}
+
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 36px;
+}
+
+.material-symbols-small {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 16px;
+}
+
+.text-button {
+  background-color: transparent !important;
+  padding: 0;
+  margin: 0;
+  color: #0088ff;
+  font-weight: bold;
+  font-size: 14px;
+  width: auto;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
+  -webkit-text-fill-color: black !important;
+  caret-color: black; 
+}
+
+
+
+@media screen and (max-width: 1000px) {
+  .main-container {
+    margin-top: 70px;
   }
 }

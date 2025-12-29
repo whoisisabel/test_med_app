@@ -139,7 +139,7 @@ export default function SignUp() {
   };
 
   return (
-    <div>
+    <div className="main-container">
       <Navbar showMenu={false} />
       <div className="login-container signup-container">
         <form className="login-card" onSubmit={handleSubmit} autoComplete="off">
