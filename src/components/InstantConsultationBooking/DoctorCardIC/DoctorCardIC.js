@@ -113,10 +113,17 @@ const DoctorCardIC = ({
                 </div>
                 <div
                   className="doctor-card-detail-name"
-                  style={{ fontSize: "28px", marginBottom: "5px" }}
+                  style={{ fontSize: "28px" }}
                 >
                   {name}
                 </div>
+                <div
+                  className="doctor-card-detail-experience"
+                  style={{ marginBottom: "5px" }}
+                >
+                  {experience} years
+                </div>
+
                 <div className="doctor-card-detail-consultationfees">
                   {ratings}
                 </div>
