@@ -7,6 +7,7 @@ import Login from "./components/Login/Login";
 import ForgotPassword from "./components/Forgot_Password/Forgot_Password";
 import Home from "./components/Home/Home";
 import InstantConsultation from "./components/InstantConsultationBooking/InstantConsultation";
+import Notification from "./components/Notifications/Notifications";
 
 function App() {
   return (
@@ -17,15 +18,19 @@ function App() {
       <div className="blob-cont">
         <div className="blue1 blob"></div>
       </div>
-
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/Login" element={<Login />} />
-        <Route path="/Sign-up" element={<SignUp />} />
-        <Route path="/Forgot-password" element={<ForgotPassword />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/instant-consultation" element={<InstantConsultation />} />
-      </Routes>
+      <Notification>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Sign-up" element={<SignUp />} />
+          <Route path="/Forgot-password" element={<ForgotPassword />} />
+          <Route path="/home" element={<Home />} />
+          <Route
+            path="/instant-consultation"
+            element={<InstantConsultation />}
+          />
+        </Routes>
+      </Notification>
     </Router>
   );
 }

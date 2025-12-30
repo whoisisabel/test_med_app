@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "reactjs-popup/dist/index.css";
 import "./DoctorCardIC.css";
 import AppointmentFormIC from "../AppointmentFormIC/AppointmentFormIC";
@@ -39,7 +39,13 @@ const DoctorCardIC = ({
     const updatedAppointments = appointments.filter(
       (appointment) => appointment.id !== appointmentId
     );
+    setShowModal(false);
     setAppointments(updatedAppointments);
+    localStorage.setItem(
+      "appointmentData",
+      JSON.stringify(updatedAppointments)
+    );
+    window.location.reload();
   };
 
   const handleFormSubmit = (appointmentData) => {
@@ -50,7 +56,23 @@ const DoctorCardIC = ({
     const updatedAppointments = [...appointments, newAppointment];
     setAppointments(updatedAppointments);
     setShowModal(false);
+    localStorage.setItem(
+      "appointmentData",
+      JSON.stringify(updatedAppointments)
+    );
+    window.location.reload();
   };
+
+  const hasAppointmentForDoctor = appointments.some(
+    (appointment) => appointment.doctorName === name
+  );
+
+  useEffect(() => {
+    const appointmentData = JSON.parse(localStorage.getItem("appointmentData"));
+    if (appointmentData) {
+      setAppointments(appointmentData);
+    }
+  }, []);
 
   return (
     <div className="doctor-card">
@@ -76,10 +98,16 @@ const DoctorCardIC = ({
         <div className="doctor-card-detail-experience">{experience} years</div>
         <button
           className="text-button"
-          style={appointments.length > 0 ? { color: "red" } : null}
+          style={
+            appointments.length > 0 && hasAppointmentForDoctor
+              ? { color: "red" }
+              : null
+          }
           onClick={() => handleBooking()}
         >
-          {appointments.length > 0 ? "Cancel Appointment" : "Book Appointment"}
+          {appointments.length > 0 && hasAppointmentForDoctor
+            ? "Cancel Appointment"
+            : "Book Appointment"}
         </button>
       </div>
       <div className="doctor-card-options-container">
@@ -91,7 +119,7 @@ const DoctorCardIC = ({
         >
           <Box sx={style}>
             <div className="doctorbg" style={{ background: "white" }}>
-              <div className="doctor-card-container-modal ">
+              <div className="doctor-card-container-modal">
                 <div className="doctor-card-details-container">
                   <div className="doctor-card-profile-image-container">
                     <img
@@ -107,7 +135,7 @@ const DoctorCardIC = ({
                   </div>
                 </div>
               </div>
-              <div style={{ width: "60%" }}>
+              <div style={{ width: "55%" }}>
                 <div className="doctor-card-detail-speciality">
                   {speciality}
                 </div>
@@ -127,21 +155,23 @@ const DoctorCardIC = ({
                 <div className="doctor-card-detail-consultationfees">
                   {ratings}
                 </div>
-                {appointments.length > 0 ? (
+                {appointments.length > 0 && hasAppointmentForDoctor ? (
                   <>
                     <h3 style={{ marginTop: "20px" }}>Appointment Booked!</h3>
-                    {appointments.map((appointment) => (
-                      <div className="bookedInfo" key={appointment.id}>
-                        <p>Name: {appointment.name}</p>
-                        <p>Phone Number: {appointment.phoneNumber}</p>
-                        <button
-                          onClick={() => handleCancel(appointment.id)}
-                          style={{ background: "red", margin: "20px 0" }}
-                        >
-                          Cancel Appointment
-                        </button>
-                      </div>
-                    ))}
+                    {appointments
+                      .filter((appointment) => appointment.doctorName === name)
+                      .map((appointment) => (
+                        <div className="bookedInfo" key={appointment.id}>
+                          <p>Name: {appointment.name}</p>
+                          <p>Phone Number: {appointment.phoneNumber}</p>
+                          <button
+                            onClick={() => handleCancel(appointment.id)}
+                            style={{ background: "red", margin: "20px 0" }}
+                          >
+                            Cancel Appointment
+                          </button>
+                        </div>
+                      ))}
                   </>
                 ) : (
                   <AppointmentFormIC
