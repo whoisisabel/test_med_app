@@ -51,10 +51,7 @@ export default function MainNavbar({ showMenu = true, active }) {
           >
             <ul className="menu">
               <li>
-                <a
-                  href="/home"
-                  className={active === "home" ? "active" : null}
-                >
+                <a href="/home" className={active === "home" ? "active" : null}>
                   Home
                 </a>
               </li>
@@ -70,7 +67,12 @@ export default function MainNavbar({ showMenu = true, active }) {
                 <a href="#">Blog</a>
               </li>
               <li>
-                <a href="#">Reviews</a>
+                <a
+                  href="/reviews"
+                  className={active === "reviews" ? "active" : null}
+                >
+                  Reviews
+                </a>
               </li>
             </ul>
             <div className="auth-buttons">

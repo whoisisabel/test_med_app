@@ -8,6 +8,7 @@ import ForgotPassword from "./components/Forgot_Password/Forgot_Password";
 import Home from "./components/Home/Home";
 import InstantConsultation from "./components/InstantConsultationBooking/InstantConsultation";
 import Notification from "./components/Notifications/Notifications";
+import ReviewForm from "./components/ReviewForm/ReviewForm";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             path="/instant-consultation"
             element={<InstantConsultation />}
           />
+          <Route path="/reviews" element={<ReviewForm />} />
         </Routes>
       </Notification>
     </Router>
