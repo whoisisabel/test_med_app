@@ -76,9 +76,6 @@ export default function MainNavbar({ showMenu = true, active }) {
                 </a>
               </li>
               <li>
-                <a href="#">Blog</a>
-              </li>
-              <li>
                 <a
                   href="/reviews"
                   className={active === "reviews" ? "active" : null}

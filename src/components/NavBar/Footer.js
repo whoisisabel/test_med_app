@@ -12,11 +12,8 @@ const Footer = () => {
           <li>
             <a href="/instant-consultation">Appointment</a>
           </li>
-          <li>
-            <a href="/#">Blog</a>
-          </li>
            <li>
-            <a href="/#">Reviews</a>
+            <a href="/reviews">Reviews</a>
           </li>
         </ul>
         <p style={{color:"#151439"}}>Be sure to take a look at our Terms of Use and Privacy Policy</p>
