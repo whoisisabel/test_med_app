@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { CircularProgress } from "@mui/material";
 import "./Sign_Up.css";
 import Navbar from "../NavBar/NavBar";
 import { API_URL } from "../../config";
@@ -258,7 +257,7 @@ export default function SignUp() {
             className="login-button"
             disabled={!isFormValid || loading}
           >
-            {loading ? <CircularProgress size={10}/> : "Sign Up"}
+            {loading ? "Loading . . .": "Sign Up"}
           </button>
 
           <div className="links links-center">

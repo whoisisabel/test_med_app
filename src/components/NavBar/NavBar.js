@@ -28,22 +28,6 @@ export default function Navbar({ showMenu = true }) {
             className={open ? "right-section active" : "right-section"}
             id="menu"
           >
-            <ul className="menu">
-              <li>
-                <a href="LandingPage.html" className="active">
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="#">Appointment</a>
-              </li>
-              <li>
-                <a href="#">Blog</a>
-              </li>
-              <li>
-                <a href="#">Reviews</a>
-              </li>
-            </ul>
             <div className="auth-buttons">
               <a href="/Sign-up">
                 <button className="signup-btn">Register</button>

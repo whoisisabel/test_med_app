@@ -9,6 +9,8 @@ import Home from "./components/Home/Home";
 import InstantConsultation from "./components/InstantConsultationBooking/InstantConsultation";
 import Notification from "./components/Notifications/Notifications";
 import ReviewForm from "./components/ReviewForm/ReviewForm";
+import ProfileCard from "./components/ProfileCard/ProfileCard";
+import Reports from "./components/Reports/Reports";
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
             element={<InstantConsultation />}
           />
           <Route path="/reviews" element={<ReviewForm />} />
+          <Route path="/profile" element={<ProfileCard />} />
+          <Route path="/reports" element={<Reports />} />
         </Routes>
       </Notification>
     </Router>

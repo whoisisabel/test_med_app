@@ -1,0 +1,164 @@
+.reports-page {
+  margin-top: 8em;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.reports-page h1 {
+  color: #1e0e62;
+  font-weight: 600;
+}
+
+.reports-page h3 {
+  color: rgba(21, 20, 57, 0.4);
+  font-weight: 400;
+  font-size: 16px;
+  margin-top: 0px;
+  margin-bottom: 2em;
+}
+
+.reports-container {
+  width: 60%;
+}
+
+.reports-form {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.reports-form h2 {
+  margin-bottom: 10px;
+}
+
+.reports-form input,
+.reports-form textarea,
+.reports-form select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  font-size: 12px;
+}
+
+.reports-form button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.reports-form button:hover {
+  background-color: #0056b3;
+}
+
+.reports-table-container {
+  width: 80%;
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.reports-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.reports-table th,
+.reports-table td {
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+  vertical-align: top;
+  font-size: 13px;
+  text-transform: uppercase;
+  color: rgba(21, 20, 57, 0.4);
+  letter-spacing: 0.05em;
+}
+
+.doctor-info-reports {
+  display: flex;
+  gap: 10px;
+}
+
+.doctor-info-reports img {
+  width: 8em;
+  height: 8em;
+  object-fit: cover;
+  border-radius: 7px;
+}
+
+.doctor-name {
+  font-weight: bold;
+  margin: 0;
+}
+
+.doctor-speciality {
+  font-size: 0.9em;
+  color: #555;
+  margin: 2px 0;
+}
+
+.doctor-rating {
+  color: #ffb400;
+}
+
+.reports-text{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reports-name {
+  font-weight: bold;
+  margin: 0;
+}
+
+.reports-comment {
+  margin: 5px 0;
+  text-transform: none;
+}
+
+.delete-btn-reports {
+  width: 5em;
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.9em;
+  font-weight: 600;
+}
+
+.delete-btn-reports:hover {
+  background-color: transparent !important;
+  text-decoration: underline !important;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  gap: 5px;
+}
+
+.pagination button {
+  width: 2em !important;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 1em;
+  background-color: transparent;
+  color: #007bff;
+}
+
+.pagination button:disabled {
+  color: #555;
+}

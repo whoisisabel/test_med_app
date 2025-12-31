@@ -3,11 +3,23 @@ import PersonIcon from "@mui/icons-material/Person";
 
 import "./NavBar.css";
 import { useNavigate } from "react-router-dom";
-import { Avatar } from "@mui/material";
+import { Avatar, Popover } from "@mui/material";
 
 export default function MainNavbar({ showMenu = true, active }) {
   const [open, setOpen] = useState(false);
   const [userName, setUsername] = useState("");
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const openPopover = Boolean(anchorEl);
+  const popoverId = openPopover ? "user-popover" : undefined;
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -76,9 +88,34 @@ export default function MainNavbar({ showMenu = true, active }) {
               </li>
             </ul>
             <div className="auth-buttons">
-              <Avatar>
-                <PersonIcon />
-              </Avatar>
+              <button
+                onClick={handleClick}
+                className="avatar"
+                aria-describedby={popoverId}
+              >
+                <Avatar>
+                  <PersonIcon />
+                </Avatar>
+              </button>
+              <Popover
+                id={popoverId}
+                open={openPopover}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "center",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "center",
+                }}
+              >
+                <div className="popover">
+                  <a href="/profile">Profile</a>
+                  <a href="/reports">Reports</a>
+                </div>
+              </Popover>
               <span>Hi, {userName}</span>
               <a href="/Login">
                 <button className="login-btn" onClick={() => handleLogout()}>

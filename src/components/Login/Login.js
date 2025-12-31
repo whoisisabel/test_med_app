@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CircularProgress } from "@mui/material";
 import "./Login.css";
 import Navbar from "../NavBar/NavBar";
 import { API_URL } from "../../config";
@@ -16,7 +15,6 @@ export default function Login() {
   const [touched, setTouched] = useState({});
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [selectOpen, setSelectOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -49,12 +47,6 @@ export default function Login() {
     setTouched({});
   };
 
-  useEffect(() => {
-    if (sessionStorage.getItem("auth-token")) {
-      navigate("/");
-    }
-  }, []);
-
   const isFormValid =
     Object.values(errors).every((e) => !e) &&
     Object.keys(validators).every((key) => userDetails[key]);
@@ -77,12 +69,9 @@ export default function Login() {
       }),
     });
 
-    console.log(response);
-
-    const json = await response.json(); // Parse the response JSON
+    const json = await response.json(); 
 
     if (json.authtoken) {
-      // Store user data in session storage
       sessionStorage.setItem("auth-token", json.authtoken);
       sessionStorage.setItem("email", userDetails.email);
 
@@ -93,7 +82,6 @@ export default function Login() {
         navigate("/Home");
       }, 3000);
 
-      // Redirect user to home page
     } else {
       if (json.errors) {
         for (const error of json.errors) {
@@ -159,7 +147,7 @@ export default function Login() {
             className="login-button"
             disabled={!isFormValid || loading}
           >
-            {loading ? <CircularProgress size={10}/> : "Login"}
+            {loading ? "Loading . . ." : "Login"}
           </button>
           <div className="links links-right">
             <a href="/Forgot-password">Forgot Password</a>

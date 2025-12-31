@@ -13,7 +13,7 @@
   z-index: 1000;
 }
 
-.bg-white{
+.bg-white {
   background-color: #fff;
 }
 
@@ -165,9 +165,32 @@
 }
 
 .footer-links a:hover {
-  color: #0088FF;
+  color: #0088ff;
 }
 
+.avatar {
+  background-color: transparent !important;
+  padding: 0 !important;
+  margin: 0;
+  width: auto;
+}
+
+.popover {
+  width: 10em;
+}
+
+.popover a {
+  padding: 10px 8px;
+  display: block;
+}
+
+.popover a:hover {
+  color: #0088ff;
+}
+
+.popover a:first-of-type {
+  border-bottom: 1px solid #bbb;
+}
 
 /* Mobile responsiveness */
 @media screen and (max-width: 1000px) {
@@ -234,4 +257,3 @@
     display: none !important;
   }
 }
-
